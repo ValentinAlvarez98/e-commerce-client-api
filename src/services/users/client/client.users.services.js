@@ -16,8 +16,11 @@ import {
 import {
       sendWelcomeEmail,
       sendGoodbyeEmail,
-      sendWholeSaleEmail
+      sendWholeSaleEmail,
+      sendResetEmail
 } from "../../../utils/mailing/mailing.utils.js";
+
+import CONFIG from "../../../environments/config.js";
 
 export class ClientUserService {
 
@@ -179,6 +182,32 @@ export class ClientUserService {
             }
 
             return dbResponse;
+
+      }
+
+      async sendResetEmail(email, password) {
+
+            const key = createHash(password);
+
+            const encodedKey = encodeURIComponent(key);
+
+            const resetLink = `${CONFIG.RESET_EMAIL_URL}/${encodedKey}`;
+
+            try {
+
+                  const response = await sendResetEmail(email, resetLink);
+
+                  return response;
+
+            } catch (error) {
+
+                  throw {
+                        statusCode: 404,
+                        message: "Error al enviar el correo",
+                        errors: ["No se pudo enviar el correo"],
+                  }
+
+            }
 
       }
 

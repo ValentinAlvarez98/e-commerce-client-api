@@ -9,6 +9,9 @@ dotenv.config({
 
 const CONFIG = {
       API_URL: process.env.API_URL,
+      RESET_EMAIL_URL: process.env.RESET_EMAIL_URL,
+      RESET_PASSWORD_URL: process.env.RESET_PASSWORD_URL,
+      CLIENT_RESET_EMAIL_URL: process.env.CLIENT_RESET_EMAIL_URL,
       PORT: process.env.PORT,
       MONGO_URL: process.env.MONGO_URL,
       MONGO_COLLECTIONS: {

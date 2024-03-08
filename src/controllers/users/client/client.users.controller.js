@@ -7,6 +7,11 @@ import {
       errorResponse
 } from "../../../utils/responses/responses.utils.js";
 
+import {
+      compareHash
+} from "../../../utils/bcrypt/bcrypt.utils.js";
+import CONFIG from "../../../environments/config.js";
+
 const clientService = new ClientService();
 
 export class ClientUsersController {
@@ -136,6 +141,41 @@ export class ClientUsersController {
                   this.formattedErrorRes(res, error.statusCode, error.message, error.errors);
 
             }
+
+      }
+
+      async sendResetEmail(req, res, next) {
+
+            try {
+
+                  const userEmail = req.user.email;
+
+                  const userPassword = req.user.password;
+
+                  const result = await clientService.sendResetEmail(userEmail, userPassword);
+
+                  this.formattedSuccessRes(res, 200, `Correo de modificación de email enviado correctamente`, result);
+
+            } catch (error) {
+
+                  this.formattedErrorRes(res, error.statusCode, error.message, error.errors);
+
+            }
+
+      }
+
+      async resetEmail(req, res, next) {
+
+
+            const {
+                  token,
+                  key,
+                  result
+            } = req;
+
+            console.log(token, key, result);
+
+            res.redirect(`${CONFIG.CLIENT_RESET_EMAIL_URL}?validKey=${result}&token=${token}&${key}`);
 
       }
 

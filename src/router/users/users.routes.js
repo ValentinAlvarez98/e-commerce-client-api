@@ -19,7 +19,8 @@ import {
 
 import {
       authMiddleware,
-      authFromCookieMiddleware as authFromCookie
+      authFromCookieMiddleware as authFromCookie,
+      authKeyMiddleware as authKey
 } from "../../middlewares/auth/auth.middleware.js";
 
 import newsletterRouter from "./newsletter/newsletter.users.routes.js";
@@ -37,6 +38,10 @@ usersRouter.post("/login", validateLogin, clientController.loginOne.bind(clientC
 usersRouter.get("/checkSession", authFromCookie, loadByJWT, clientController.checkSession.bind(clientController));
 
 usersRouter.get("/logout", authFromCookie, clientController.logout.bind(clientController));
+
+usersRouter.get("/sendResetEmail", authFromCookie, loadByJWT, clientController.sendResetEmail.bind(clientController));
+
+usersRouter.get("/resetEmail/:key", authKey, clientController.resetEmail.bind(clientController));
 
 usersRouter.put("/updateOne/basicInfo", authMiddleware, validateBasicData, loadByJWT, clientController.updateBasicInfo.bind(clientController));
 

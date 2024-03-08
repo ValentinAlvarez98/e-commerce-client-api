@@ -3,8 +3,20 @@ import {
       verifyJWT
 } from "../../utils/JWT/jwt.utils.js";
 
+import {
+      compareHash
+} from "../../utils/bcrypt/bcrypt.utils.js";
+
+
+
 import AuthError from "../../services/errors/authorizationError.js";
 import InvalidError from "../../services/errors/invalidError.js";
+
+import {
+      ClientUserService
+} from "../../services/users/client/client.users.services.js";
+
+const clientService = new ClientUserService();
 
 export const authMiddleware = (req, res, next) => {
 
@@ -72,6 +84,64 @@ export const authFromCookieMiddleware = (req, res, next) => {
             throw new AuthError(["No se ha podido verificar el token"]);
       }
 
+}
 
+export const authKeyMiddleware = async (req, res, next) => {
+
+      try {
+
+            const token = req.cookies.token;
+
+            if (!token) {
+
+                  throw new AuthError(["No se ha encontrado el token en las cookies"]);
+
+            }
+
+            const {
+                  key
+            } = req.params;
+
+            if (!key) {
+
+                  throw new AuthError(["No se ha encontrado el key en los parametros"]);
+
+            }
+
+            const decoded = verifyJWT(token);
+
+            if (!decoded) {
+
+                  throw new InvalidError(["El token no es valido"]);
+
+            }
+
+            const user = await clientService.loadUser(decoded);
+
+            if (!user) {
+
+                  throw new InvalidError(["El usuario no existe"]);
+
+            }
+
+            const result = compareHash(user.password, key);
+
+            if (!result) {
+
+                  throw new InvalidError(["El key no es valido"]);
+
+            }
+
+            req.result = result;
+
+            req.key = key;
+
+            req.token = token;
+
+            next();
+
+      } catch (error) {
+            throw new AuthError(["No se ha podido verificar el token"]);
+      }
 
 }

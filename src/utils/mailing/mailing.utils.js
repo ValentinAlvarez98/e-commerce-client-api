@@ -195,6 +195,52 @@ export async function sendGoodbyeEmail(email) {
 
 }
 
+export async function sendResetEmail(email, resetLink) {
+
+      const HTML = `
+      <h1>Modificar Email</h1>
+      <div>
+          <h2>Para modificar tu email, ingresa al siguiente enlace</h2>
+
+      </div>
+
+      <div>
+                  <p>${resetLink}</p>
+      </div>
+
+      <div>
+
+                  <p>Saludos</p>
+
+      </div>
+
+      <div>
+
+                  <h3> Como siempre, gracias por confiar en nosotros</h3>
+
+      </div>
+
+      `;
+
+      const mailOptions = {
+            from: MAIL.user,
+            to: email,
+            subject: 'Modificar Email',
+            html: HTML,
+      };
+
+      return new Promise((resolve, reject) => {
+            TRANSPORTER.sendMail(mailOptions, (error, info) => {
+                  if (error) {
+                        reject(error);
+                  } else {
+                        resolve(info);
+                  }
+            });
+      });
+
+}
+
 
 
 
