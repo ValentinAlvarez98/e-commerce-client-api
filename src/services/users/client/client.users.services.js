@@ -21,6 +21,24 @@ import {
 
 export class ClientUserService {
 
+      async loadUser(id) {
+
+            const dbResponse = await DAOs.users.getOneById(id);
+
+            if (!dbResponse) {
+
+                  throw {
+                        statusCode: 404,
+                        message: "Error al obtener el usuario",
+                        errors: ["El usuario no existe"],
+                  }
+
+            }
+
+            return dbResponse;
+
+      }
+
       async createOne(user) {
 
             user.password = createHash(user.password);

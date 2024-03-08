@@ -1,6 +1,27 @@
 import usersModel from "../../schemas/users.schema.js";
 export class UsersDAO {
 
+      async getOneById(id) {
+
+            try {
+
+                  const user = await usersModel.findById(id).lean();
+
+                  return user;
+
+
+            } catch (error) {
+
+                  throw {
+                        statusCode: 404,
+                        message: "Error al obtener el usuario",
+                        errors: error
+                  }
+
+            }
+
+      }
+
       async getOneByEmail(email) {
 
             try {
