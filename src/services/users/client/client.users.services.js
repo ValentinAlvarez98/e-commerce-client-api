@@ -27,6 +27,7 @@ export class ClientUserService {
 
             const userToCreate = {
                   ...user,
+                  display_name: `${user.email}`,
                   last_activity: new Date().toISOString(),
             }
 
@@ -165,11 +166,11 @@ export class ClientUserService {
 
       async updateBasicInfo(oldUser, newUserData) {
 
-            const user = deleteEmpty(newUserData);
+            const newData = deleteEmpty(newUserData);
 
             const userToUpdate = {
                   ...oldUser,
-                  ...user,
+                  ...newData,
                   last_activity: new Date().toISOString()
             }
 

@@ -15,6 +15,11 @@ const usersSchema = new mongoose.Schema({
             required: [true, 'Last name is required'],
       },
 
+      display_name: {
+            type: String,
+            required: [true, 'Display name is required'],
+      },
+
       email: {
             type: String,
             required: [true, 'Email is required'],

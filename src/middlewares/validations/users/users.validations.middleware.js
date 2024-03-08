@@ -17,7 +17,7 @@ const loginFields = ["email", "password"];
 
 const registerFields = ["first_name", "last_name", "email", "password"];
 
-const basicDataFields = ["first_name", "last_name"];
+const basicDataFields = ["first_name", "last_name", "display_name"];
 
 const addressFields = ["state", "location", "address", "phone", "name", "type", "commentary"];
 
@@ -76,6 +76,12 @@ export const validateBasicData = [
       }).isLength({
             min: 2
       }).withMessage("El apellido debe tener al menos 2 caracteres"),
+
+      body("display_name").optional({
+            checkFalsy: true
+      }).isLength({
+            min: 4
+      }).withMessage("El nombre a mostrar debe tener al menos 4 caracteres"),
 
       resultCheck
 ]
