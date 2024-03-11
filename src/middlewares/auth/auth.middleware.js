@@ -7,16 +7,14 @@ import {
       compareHash
 } from "../../utils/bcrypt/bcrypt.utils.js";
 
-
-
 import AuthError from "../../services/errors/authorizationError.js";
 import InvalidError from "../../services/errors/invalidError.js";
 
 import {
-      ClientUserService
-} from "../../services/users/client/client.users.services.js";
+      UserService
+} from "../../services/users/users.services.js";
 
-const clientService = new ClientUserService();
+const userService = new UserService();
 
 export const authMiddleware = (req, res, next) => {
 
@@ -116,7 +114,7 @@ export const authKeyMiddleware = async (req, res, next) => {
 
             }
 
-            const user = await clientService.loadUser(decoded);
+            const user = await userService.loadUser(decoded);
 
             if (!user) {
 

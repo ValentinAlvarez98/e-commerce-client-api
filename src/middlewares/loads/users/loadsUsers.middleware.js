@@ -2,10 +2,10 @@ import DAOs from "../../../models/daos/index.daos.js";
 import ValidationError from "../../../services/errors/validationError.js";
 
 import {
-      ClientUserService
-} from "../../../services/users/client/client.users.services.js";
+      UserService
+} from "../../../services/users/users.services.js";
 
-const clientService = new ClientUserService();
+const userService = new UserService();
 
 export async function loadUserByParams(req, res, next) {
 
@@ -23,7 +23,7 @@ export async function loadUserByParams(req, res, next) {
 
             }
 
-            const user = await clientService.loadUser(userId);
+            const user = await userService.loadUser(userId);
 
             req.user = user;
 
@@ -53,7 +53,7 @@ export async function loadUserByJWT(req, res, next) {
 
             }
 
-            const user = await clientService.loadUser(userId);
+            const user = await userService.loadUser(userId);
 
             req.user = user;
 

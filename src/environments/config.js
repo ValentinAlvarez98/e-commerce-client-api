@@ -17,6 +17,7 @@ const CONFIG = {
       MONGO_COLLECTIONS: {
             users: process.env.MONGO_COLLECTION_USERS,
             products: process.env.MONGO_COLLECTION_PRODUCTS,
+            categories: process.env.MONGO_COLLECTION_CATEGORIES,
       },
       SECRET: process.env.SECRET,
       KEY: process.env.KEY,

@@ -1,4 +1,4 @@
-import usersModel from "../../schemas/users.schema.js";
+import usersModel from "../../schemas/users/users.schema.js";
 export class UsersDAO {
 
       async getOneById(id) {

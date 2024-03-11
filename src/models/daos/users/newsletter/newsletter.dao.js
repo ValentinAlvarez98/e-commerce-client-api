@@ -1,4 +1,4 @@
-import NewsletterModel from "../../../schemas/newsletter.schema.js";
+import NewsletterModel from "../../../schemas/users/newsletter/newsletter.schema.js";
 
 export class NewsletterDAO {
 
