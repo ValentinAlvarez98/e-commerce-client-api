@@ -63,6 +63,9 @@ const productsSchema = new mongoose.Schema({
             type: String,
             required: true,
       }],
+      group: {
+            type: String,
+      },
       sizes: [productSizeSchema], // Usa el esquema de tamaño aquí
       category: {
             type: mongoose.Schema.Types.ObjectId,
